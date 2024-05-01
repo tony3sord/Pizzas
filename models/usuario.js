@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-const UserSchema = new mongoose.Schema({
+const UsuarioSchema = new mongoose.Schema({
   nombre: String,
   apellidos: String,
   correo: String,
@@ -12,14 +12,13 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.pre("save", async function (next) {
+UsuarioSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
   }
 
   try {
     const salt = await bcrypt.genSalt(10);
-    console.log(this.password, "como this", salt, "como salt");
     const hashedPassword = await bcrypt.hash(this.password, salt);
     this.password = hashedPassword;
     next();
@@ -28,7 +27,7 @@ UserSchema.pre("save", async function (next) {
   }
 });
 
-UserSchema.methods.changePassword = async function (newPassword) {
+UsuarioSchema.methods.changePassword = async function (newPassword) {
   try {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
@@ -39,8 +38,8 @@ UserSchema.methods.changePassword = async function (newPassword) {
     throw error;
   }
 };
-UserSchema.methods.validPassword = function (password) {
+UsuarioSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-export default mongoose.model("Usuario", UserSchema);
+export default mongoose.model("Usuario", UsuarioSchema);
