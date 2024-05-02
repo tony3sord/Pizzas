@@ -41,7 +41,7 @@ router.post("/registrar", async (req, res) => {
 });
 
 //logout
-router.post("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   try {
     req.logout(() => {});
     return res.status(200).send("Se ha cerrado la sesión correctamente");
