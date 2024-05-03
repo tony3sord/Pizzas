@@ -1,7 +1,7 @@
-import Producto from "../models/producto.js";
+import Producto from "../../models/producto.js";
 
 const validar = async (nombre) => {
-  const producto = await Usuario.Producto({ nombre });
+  const producto = await Producto.Producto({ nombre });
   if (producto) {
     return producto;
   }

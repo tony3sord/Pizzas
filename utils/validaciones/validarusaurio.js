@@ -1,4 +1,4 @@
-import Usuario from "../models/usuario.js";
+import Usuario from "../../models/usuario.js";
 
 const validar = async (usuario, correo) => {
   const validate_email = await Usuario.findOne({ correo });
